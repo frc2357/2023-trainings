@@ -12,4 +12,9 @@ public class AutoDriveCommandGroup extends SequentialCommandGroup {
         addCommands(new WaitCommand(0.25)); 
         addCommands(new AutoDriveCommand(driveSub, 1000, 0.3, 0.0)); // Drive forward for 1000ms
     }
+
+    @Override
+    public String toString() {
+        return "Auto Drive Command Group";
+    }
 }

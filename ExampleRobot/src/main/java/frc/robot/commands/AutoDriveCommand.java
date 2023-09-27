@@ -32,4 +32,9 @@ public class AutoDriveCommand extends CommandBase {
     public void end(boolean interrupted) {
         m_driveSub.driveProportional(0.0, 0.0);
     }
+
+    @Override
+    public String toString() {
+        return "Auto Drive";
+    }
 }

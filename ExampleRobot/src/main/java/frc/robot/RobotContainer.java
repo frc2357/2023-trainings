@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.AutoCommandChooser;
 import frc.robot.commands.AutoDriveCommand;
 import frc.robot.commands.AutoDriveCommandGroup;
 import frc.robot.commands.DriveProportionalCommand;
@@ -25,6 +26,8 @@ import frc.robot.subsystems.DriveSubsystem;
 public class RobotContainer {
 
   private DriveSubsystem m_driveSub;
+
+  private AutoCommandChooser m_chooser;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -47,6 +50,8 @@ public class RobotContainer {
     XboxController controller = new XboxController(Constants.CONTROLLER_PORT);
 
     m_driveSub.setDefaultCommand(new DriveProportionalCommand(m_driveSub, controller));
+
+    m_chooser = new AutoCommandChooser(m_driveSub);
   }
 
   /**
@@ -57,6 +62,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     //return new AutoDriveCommand(m_driveSub, 1000, 0.25, 0.0);
 
-    return new AutoDriveCommandGroup(m_driveSub);
+    //return new AutoDriveCommandGroup(m_driveSub);
+
+    return m_chooser.getSelectedAutoCommand();
   }
 }
