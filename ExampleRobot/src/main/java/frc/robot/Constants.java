@@ -23,4 +23,5 @@ public final class Constants {
     public static final double DEADBAND = 0.1;
 
     public static final int CONTROLLER_PORT = 0;
+    public static final int WALL_SENSOR_DIO = 0;
 }

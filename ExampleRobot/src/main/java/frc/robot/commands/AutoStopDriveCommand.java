@@ -1,10 +1,13 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import java.util.function.BooleanSupplier;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class AutoStopDriveCommand extends CommandBase {
-    public AutoStopDriveCommand(DriveSubsystem driveSub) {
-        
+public class AutoStopDriveCommand {
+    public static Command createAutoStopDriveCommand(DriveSubsystem driveSub, double timeMillis,
+            double speed, double turn, BooleanSupplier stopper) {
+        return new AutoDriveCommand(driveSub, timeMillis, speed, turn).until(stopper);
     }
 }
