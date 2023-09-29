@@ -18,13 +18,13 @@ public class AutoCommandChooser {
 
         DigitalInput wallSensorIn = new DigitalInput(Constants.WALL_SENSOR_DIO);
         BooleanSupplier wallSensor = () -> {
-            return wallSensorIn.get();
+            return !wallSensorIn.get();
         };
 
         m_autoCommands = new Command[] {
                 new AutoDriveCommand(driveSub, 1000, 0.25, 0),
                 new AutoDriveCommandGroup(driveSub),
-                AutoStopDriveCommand.createAutoStopDriveCommand(driveSub, 2000, 0.25, 0.0, wallSensor)
+                AutoStopDriveCommand.createAutoStopDriveCommand(driveSub, 2000, -0.2, 0.0, wallSensor)
         };
 
         m_chooser = new SendableChooser<>();
