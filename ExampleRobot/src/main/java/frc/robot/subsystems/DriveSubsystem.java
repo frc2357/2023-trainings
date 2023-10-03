@@ -50,7 +50,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void driveProportionalWithStick(double speed, double turn) {
-        speed = MathUtil.applyDeadband(speed, m_deadband);
+        speed = -1 * MathUtil.applyDeadband(speed, m_deadband);
         turn = MathUtil.applyDeadband(turn, m_deadband);
         driveProportional(speed, turn);
     }

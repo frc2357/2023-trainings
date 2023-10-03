@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-import java.lang.module.ModuleDescriptor.Requires;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
@@ -19,7 +17,7 @@ public class DriveProportionalCommand extends CommandBase {
 
     @Override 
     public void execute() {
-        m_driveSub.driveProportionalWithStick(-1*m_controller.getLeftY(), m_controller.getRightX());
+        m_driveSub.driveProportionalWithStick(m_controller.getLeftY(), m_controller.getRightX());
     }
 
     @Override
