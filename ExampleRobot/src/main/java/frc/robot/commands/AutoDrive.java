@@ -1,29 +1,32 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class AutoDrive extends CommandBase {
 
-    private double m_timeMillis, m_timeTotal, m_turn, m_speed;
+    private double m_timeMillis, m_turn, m_speed;
+    private Timer m_timer;
 
     public AutoDrive(double timeMillis, double speed, double turn) {
         m_timeMillis = timeMillis;
         m_turn = turn;
         m_speed = speed;
 
+        m_timer = new Timer();
         addRequirements(Robot.drive);
     }
 
     @Override
     public void initialize() {
         Robot.drive.driveProportional(m_speed, m_turn);
-        m_timeTotal = System.currentTimeMillis() + m_timeMillis;
+        m_timer.start();
     }
 
     @Override
     public boolean isFinished() {
-        return m_timeTotal < System.currentTimeMillis();
+        return m_timer.hasElapsed(m_timeMillis / 1000);
     }
 
     @Override

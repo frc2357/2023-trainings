@@ -23,7 +23,10 @@ public class AutoCommandChooser {
         m_autoCommands = new Command[] {
                 new AutoDrive(1000, 0.25, 0),
                 new AutoDriveGroup(),
-                AutoStopDrive.createAutoStopDriveCommand(2000, -0.2, 0.0, wallSensor)
+                AutoStopDrive.createAutoStopDriveCommand(2000, -0.2, 0.0, wallSensor),
+                new BadAutoDrive(),
+                new LoopLoopOverrun(),
+                new NetworkLoopOverrun(),
         };
 
         m_chooser = new SendableChooser<>();
