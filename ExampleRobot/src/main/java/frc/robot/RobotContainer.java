@@ -4,15 +4,11 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.AutoCommandChooser;
-import frc.robot.commands.AutoDriveCommand;
-import frc.robot.commands.AutoDriveCommandGroup;
-import frc.robot.commands.DriveProportionalCommand;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.commands.DriveProportional;
+import frc.robot.subsystems.Drive;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -24,34 +20,19 @@ import frc.robot.subsystems.DriveSubsystem;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-
-  private DriveSubsystem m_driveSub;
-
   private AutoCommandChooser m_chooser;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    Robot.drive = new Drive();
 
-    WPI_TalonFX leftFalconMaster = new WPI_TalonFX(Constants.DRIVE_MOTOR_LEFT_1);
+    Robot.controller = new XboxController(Constants.CONTROLLER.DRIVER);
 
-    WPI_TalonFX[] leftFalconSlaves = new WPI_TalonFX[] {
-        new WPI_TalonFX(Constants.DRIVE_MOTOR_LEFT_2) };
+    Robot.drive.setDefaultCommand(new DriveProportional());
 
-    WPI_TalonFX rightFalconMaster = new WPI_TalonFX(Constants.DRIVE_MOTOR_RIGHT_1);
-
-    WPI_TalonFX[] rightFalconSlaves = new WPI_TalonFX[] {
-        new WPI_TalonFX(Constants.DRIVE_MOTOR_RIGHT_2) };
-
-    m_driveSub = new DriveSubsystem(leftFalconMaster, leftFalconSlaves, rightFalconMaster, rightFalconSlaves,
-        Constants.IS_RIGHT_DRIVE_INVERTED, Constants.DEADBAND);
-
-    XboxController controller = new XboxController(Constants.CONTROLLER_PORT);
-
-    m_driveSub.setDefaultCommand(new DriveProportionalCommand(m_driveSub, controller));
-
-    m_chooser = new AutoCommandChooser(m_driveSub);
+    m_chooser = new AutoCommandChooser();
   }
 
   /**

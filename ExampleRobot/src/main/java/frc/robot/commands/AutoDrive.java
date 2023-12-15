@@ -1,25 +1,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.Robot;
 
-public class AutoDriveCommand extends CommandBase {
+public class AutoDrive extends CommandBase {
 
-    private DriveSubsystem m_driveSub;
     private double m_timeMillis, m_timeTotal, m_turn, m_speed;
 
-    public AutoDriveCommand(DriveSubsystem driveSub, double timeMillis, double speed, double turn) {
-        m_driveSub = driveSub;
+    public AutoDrive(double timeMillis, double speed, double turn) {
         m_timeMillis = timeMillis;
         m_turn = turn;
         m_speed = speed;
 
-        addRequirements(m_driveSub);
+        addRequirements(Robot.drive);
     }
 
     @Override
     public void initialize() {
-        m_driveSub.driveProportional(m_speed, m_turn);
+        Robot.drive.driveProportional(m_speed, m_turn);
         m_timeTotal = System.currentTimeMillis() + m_timeMillis;
     }
 
@@ -30,7 +28,7 @@ public class AutoDriveCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_driveSub.driveProportional(0.0, 0.0);
+        Robot.drive.driveProportional(0.0, 0.0);
     }
 
     @Override
